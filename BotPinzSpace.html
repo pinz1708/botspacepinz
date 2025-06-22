@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>BotSpace Pinz</title>
+  <style>
+    body {
+      background-color: #1b1b2f;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #c77dff;
+      text-align: center;
+    }
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .input-row input {
+      width: 60px;
+      padding: 5px;
+      background-color: #2a2a40;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    button {
+      background-color: #7209b7;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #2a2a40;
+      border-radius: 5px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      background: #2a2a40;
+      color: white;
+      border: 1px solid #555;
+      padding: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🛰️ BotSpace Pinz</h1>
+
+<div class="input-row" id="inputs">
+  <!-- 10 input fields -->
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+  <input type="number" step="0.01">
+</div>
+
+<button onclick="analisa()">🔍 Analisa Sekarang</button>
+
+<div class="output" id="hasilPrediksi">
+  <strong>Hasil Prediksi:</strong>
+  <ul id="resultList"></ul>
+</div>
+
+<h3>📊 Catat Profit Manual</h3>
+<textarea id="catatan" placeholder="Contoh: Modal 50K → Profit 72K (Gas 2x)"> </textarea>
+
+<script>
+function analisa() {
+  const inputs = document.querySelectorAll('#inputs input');
+  const values = Array.from(inputs).map(i => parseFloat(i.value)).filter(v => !isNaN(v));
+  const resultList = document.getElementById('resultList');
+  resultList.innerHTML = '';
+
+  if (values.length < 3) {
+    resultList.innerHTML = '<li>Masukkan minimal 3 data!</li>';
+    return;
+  }
+
+  // Pola-pola prediksi:
+  if (values.slice(-3).every(v => v <= 1.01)) {
+    resultList.innerHTML += '<li>🚀 Potensi besar setelah 3x 1.00!</li>';
+  }
+
+  if (values.length >= 3 &&
+      values[values.length - 3] < values[values.length - 2] &&
+      values[values.length - 2] < values[values.length - 1]) {
+    resultList.innerHTML += '<li>📈 Tangga naik – peluang profit!</li>';
+  }
+
+  if (values[values.length - 1] > 10) {
+    resultList.innerHTML += '<li>⚠️ Waspada reversal setelah lonjakan!</li>';
+  }
+
+  if (values.length >= 4) {
+    const lastFour = values.slice(-4);
+    if (lastFour[0] > lastFour[1] && lastFour[1] > lastFour[2] && lastFour[2] > lastFour[3]) {
+      resultList.innerHTML += '<li>📉 Pola turun – siap mantul?</li>';
+    }
+  }
+
+  if (values.length >= 5 && values.filter(v => v <= 1.30).length >= 4) {
+    resultList.innerHTML += '<li>🛑 Terlalu banyak low – kemungkinan jebakan!</li>';
+  }
+
+  if (resultList.innerHTML === '') {
+    resultList.innerHTML = '<li>🤖 Tidak ditemukan pola spesifik. Main aman!</li>';
+  }
+}
+</script>
+
+</body>
+</html>
