@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const crashSound = document.getElementById("crashSound");
   const spacemanEl = document.querySelector(".spaceman");
   const botList = document.getElementById("botList");
+  const liveProfit = document.getElementById("liveProfit");
 
   const bots = ["Andi", "Budi", "Rina", "Dewi", "Agus"];
 
@@ -32,11 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
     crashPoint = (Math.random() * 8 + 1).toFixed(2);
     multiplierEl.innerText = `${multiplier.toFixed(2)}x`;
     messageEl.innerText = "";
+    liveProfit.innerText = "+Rp 0";
 
     interval = setInterval(() => {
       multiplier += 0.01;
       multiplierEl.innerText = `${multiplier.toFixed(2)}x`;
       spacemanEl.style.bottom = `${(multiplier * 10)}px`;
+
+      if (isTaruh) {
+        const realProfit = Math.floor(taruhan * multiplier) - taruhan;
+        liveProfit.innerText = `+Rp ${realProfit.toLocaleString("id-ID")}`;
+      }
 
       if (isTaruh && parseFloat(autoCashInput.value) <= multiplier) {
         cashout();
@@ -58,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       messageEl.innerText = `Crash! Gagal di ${multiplier.toFixed(2)}x`;
       isTaruh = false;
       ambilBtn.disabled = true;
+      liveProfit.innerText = "+Rp 0";
 
       setTimeout(() => {
         spacemanEl.classList.remove("crash");
@@ -78,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     winSound.play();
     isTaruh = false;
     ambilBtn.disabled = true;
+    liveProfit.innerText = "+Rp 0";
   }
 
   function updateRiwayat(val) {
