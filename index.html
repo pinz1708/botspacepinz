@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpaceX Pinz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 SpaceX Pinz</h1>
+    <div class="status">
+      <span id="saldo">Saldo: Rp <span id="saldoValue">100000</span></span>
+      <span id="autoCashout">Auto Cashout: <input type="number" id="autoCash" value="2.00" step="0.01" min="1.01"> x</span>
+    </div><div class="game-area">
+  <img src="assets/spaceman.gif" alt="Spaceman" class="spaceman">
+  <div id="multiplier">1.00x</div>
+</div>
+
+<div class="controls">
+  <input type="number" id="taruhan" placeholder="Taruhan (Rp)" min="1000" step="1000">
+  <button id="taruhBtn">TARUH</button>
+  <button id="ambilBtn" disabled>AMBIL</button>
+</div>
+
+<div class="message" id="message"></div>
+
+<div class="riwayat">
+  <h3>Riwayat Crash</h3>
+  <div id="riwayatList"></div>
+</div>
+
+<div class="bot-players">
+  <h4>Pemain Lain:</h4>
+  <ul id="botList">
+    <!-- Bot ditambahkan lewat JS -->
+  </ul>
+</div>
+
+  </div><audio id="winSound" src="assets/win.mp3"></audio> <audio id="crashSound" src="assets/crash.mp3"></audio>
+
+  <script src="main.js"></script></body>
+</html>
